@@ -15,7 +15,10 @@ apply from: 'gradle/eclipse.gradle'
 version = '0.5'
 
 repositories {
-    jcenter()
+    //jcenter()
+    jcenter {
+            url "http://jcenter.bintray.com/" 
+        }
 }
 
 dependencies {
