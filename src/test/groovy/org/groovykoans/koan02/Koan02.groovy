@@ -20,6 +20,8 @@ class Koan02 extends GroovyTestCase {
         def predicate2 = true
 
         // ------------ START EDITING HERE ----------------------
+        predicate1 = true
+        predicate2 = false
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -34,6 +36,8 @@ class Koan02 extends GroovyTestCase {
         List<String> list = ['item']
 
         // ------------ START EDITING HERE ----------------------
+        map['Angel']=30
+        list.clear()
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -44,11 +48,12 @@ class Koan02 extends GroovyTestCase {
 
     void test03_StringTruth() {
         // Quite intuitively, empty (or null) strings are false.
-        String s1 = 'Non-empty string'
+        String s1 = 'Non-empty string'  
         String s2 = ''
 
         // ------------ START EDITING HERE ----------------------
-
+        s1 = ""
+        s2 = "anything"
 
         // ------------ STOP EDITING HERE  ----------------------
 
@@ -65,8 +70,7 @@ class Koan02 extends GroovyTestCase {
 
         // Remove (or change) the offending integer to continue
         // ------------ START EDITING HERE ----------------------
-
-
+        balance[3] = 1
         // ------------ STOP EDITING HERE  ----------------------
 
         // Iterate through the list and AND the boolean values of its members.
