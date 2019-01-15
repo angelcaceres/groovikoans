@@ -30,6 +30,8 @@ class Koan03 extends GroovyTestCase {
         def javaFirstName
         def groovyFirstName
         // ------------ START EDITING HERE ----------------------
+        javaFirstName = javaPerson.getFirstName();
+        groovyFirstName = groovyPerson.firstName;
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -47,6 +49,8 @@ class Koan03 extends GroovyTestCase {
         def failed = true
         shouldFail (ReadOnlyPropertyException) {
             // ------------ START EDITING HERE ----------------------
+            person.ssn = 654
+            
 
 
             // ------------ STOP EDITING HERE  ----------------------
@@ -70,6 +74,7 @@ class Koan03 extends GroovyTestCase {
         // Create a SimpleGroovyBean using named arguments, to represent a transaction with -30 as its data.
         def transaction
         // ------------ START EDITING HERE ----------------------
+        transaction = new SimpleGroovyBean (title : 'Marie Kondo' , data : -30)
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -81,7 +86,7 @@ class Koan03 extends GroovyTestCase {
         // Groovy also allows you to have default values.
         // See http://mrhaki.blogspot.com/2009/09/groovy-goodness-parameters-with-default.html
 
-        // Once you've learned how to use default values, modify the NameWithDefaultValue
+        // Once you 've learned how to use default values, modify the NameWithDefaultValue
         // class to set name to 'Anonymous' if no name has been specified.
         def nameObject = new NameWithDefaultValue()
         assert nameObject.name == 'Anonymous'
