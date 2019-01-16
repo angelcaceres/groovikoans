@@ -12,6 +12,17 @@ public enum Feeling {
 
     // ------------ START EDITING HERE ----------------------
 
+    boolean isCase(Person person){
+        person.feelings.contains(this)
+    }
+
+    boolean isCase(Cartoon cartoon){
+        cartoon.feeling == (this)
+    }
+  
+
+
+
 
     // ------------ STOP EDITING HERE  ----------------------
 
