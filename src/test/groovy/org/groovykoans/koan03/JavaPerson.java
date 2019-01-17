@@ -26,6 +26,9 @@ public class JavaPerson implements Serializable {
     }
 
     // ------------ START EDITING HERE ----------------------
+    public String getFirstName(){
+        return firstName;
+    }
 
 
     // ------------ STOP EDITING HERE  ----------------------
@@ -45,9 +48,5 @@ public class JavaPerson implements Serializable {
     // Since ssn cannot be modified, we only have a getter for this field
     public String getSsn() {
         return ssn;
-    }
-
-    public String getFirstName(){
-        return firstName;
     }
 }
