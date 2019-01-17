@@ -34,7 +34,9 @@ class Koan10 extends GroovyTestCase {
         // and find out how many movies are listed.
         def movieCount
         // ------------ START EDITING HERE ----------------------
-
+        def parser = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
+        movieCount = parser.movie.size()
+        
 
         // ------------ STOP EDITING HERE  ----------------------
         assert movieCount == 7
@@ -43,6 +45,11 @@ class Koan10 extends GroovyTestCase {
         // Hint: pay attention to the type of objects you're getting.
         List<String> moviesWithThe = []
         // ------------ START EDITING HERE ----------------------
+        def xml2 = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
+        def pelis = xml2.movie.title.findAll {
+            it.text().toLowerCase().contains('the')}
+
+            moviesWithThe = pelis.collect() { it.text() }
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -51,6 +58,10 @@ class Koan10 extends GroovyTestCase {
         // How many movie ids have a value greater than 5?
         def movieIdsGreaterThan5
         // ------------ START EDITING HERE ----------------------
+        //def xml2 = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
+        movieIdsGreaterThan5 = xml2.movie.findAll {
+            it.@id.text().toInteger() > 5 }.size()
+
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -65,6 +76,13 @@ class Koan10 extends GroovyTestCase {
 
         List<String> sortedList = []
         // ------------ START EDITING HERE ----------------------
+        def xml = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
+        def pelis = xml.movie.list().sort { node1, node2 ->
+            def year1 = node1.year.text()
+            def year2 = node2.year.text()
+            return (year1 == year2) ? node1.title.text()<=>node2.title.text() : year1<=>year2
+        }
+        sortedList = pelis.collect { it.title.text() }
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -90,10 +108,17 @@ class Koan10 extends GroovyTestCase {
         // Using MarkupBuilder, create the above html as String
         def html
         // ------------ START EDITING HERE ----------------------
-
+        def writer = new StringWriter() 
+        def html2 = new MarkupBuilder(writer)
+        html2.html{
+            body{
+                h1('title')
+            }
+        }
+        html = writer.toString()
 
         // ------------ STOP EDITING HERE  ----------------------
-        assert formatXml(html) == formatXml("<html><body><h1>title</h1></body></html>")
+        assert formatXml(html.toString()) == formatXml("<html><body><h1>title</h1></body></html>")
     }
 
     void test04_XmlMarkupBuilder2() {
@@ -107,6 +132,19 @@ class Koan10 extends GroovyTestCase {
 
         String convertedXml
         // ------------ START EDITING HERE ----------------------
+        def xml = new XmlSlurper().parse('src/test/groovy/org/groovykoans/koan10/movies.xml')
+        def writer = new StringWriter()
+        def xml2 = new MarkupBuilder(writer)
+       
+            xml2.movies{
+                 xml.movie.each {node ->
+                movie(id: node.@id.text(), title: node.title.text(), year: node.year.text())
+            }
+            }
+        
+        
+        convertedXml = writer.toString()
+
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -142,6 +180,8 @@ class Koan10 extends GroovyTestCase {
         // http://ant.apache.org/manual/Tasks/copy.html
         def baseDir = 'src/test/groovy/org/groovykoans/koan10'
         // ------------ START EDITING HERE ----------------------
+        def ant = new AntBuilder()
+        ant.copy(file:baseDir+'/movies.xml', tofile:baseDir+'/movies_copy.xml')
 
 
         // ------------ STOP EDITING HERE  ----------------------
@@ -156,6 +196,11 @@ class Koan10 extends GroovyTestCase {
         def baseDir = 'src/test/groovy/org/groovykoans/koan10'
         def actualChecksum
         // ------------ START EDITING HERE ----------------------
+        def ant = new AntBuilder()
+        ant.checksum(file:baseDir+"/movies.xml", property: "checksumpelis")
+        actualChecksum = ant.project.properties.checksumpelis
+
+
 
 
         // ------------ STOP EDITING HERE  ----------------------
