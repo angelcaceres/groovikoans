@@ -69,7 +69,7 @@ class Koan12 extends GroovyTestCase {
 
 
         // ------------ STOP EDITING HERE  ----------------------
-       new StaticFactory(numbers: 1..10).work()
+        new StaticFactory(numbers: 1..10).work()
         endTime = System.currentTimeMillis()
         assert endTime - startTime < 3000
 
